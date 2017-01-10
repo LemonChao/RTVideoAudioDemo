@@ -1,0 +1,48 @@
+Last login: Tue Jan 10 14:54:34 on ttys000
+192:~ Lemon$ cd /Users/zhengchao/Documents/gitRepo/LCAVAudionSession 
+192:LCAVAudionSession Lemon$ ls -a
+.				LCAVAudionSession
+..				LCAVAudionSession.xcodeproj
+.DS_Store			LCAVAudionSessionTests
+.git				LCAVAudionSessionUITests
+.gitignore			README.md
+192:LCAVAudionSession Lemon$ vi .gitignore
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xcuserstate
+.DS_Store
+
