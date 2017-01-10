@@ -102,7 +102,9 @@ static const NSTimeInterval bufferDuration = 0.2;
     _offset = 0;
     [_fileHandler seekToFileOffset:0];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MCAudioSessionInterruptionNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:MCAudioSessionInterruptionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+
     
     //clean buffer
     [_buffer clean];
@@ -231,20 +233,34 @@ static const NSTimeInterval bufferDuration = 0.2;
 {
     _failed = YES;
     NSError *error = nil;
-    //set audiosession category
-    if ([[MCAudioSession sharedInstance] setCategory:kAudioSessionCategory_PlayAndRecord error:NULL])
+    if ([[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:NULL])
     {
         //active audiosession
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruptHandler:) name:MCAudioSessionInterruptionNotification object:nil];
-        if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruptHandler:) name:AVAudioSessionInterruptionNotification object:nil];
+        if ([[AVAudioSession sharedInstance] setActive:YES error:NULL])
         {
             if (!error)
             {
                 _failed = NO;
-//                _audioFileStream.delegate = self;
+                //                _audioFileStream.delegate = self;
             }
         }
     }
+
+    //set audiosession category
+//    if ([[MCAudioSession sharedInstance] setCategory:kAudioSessionCategory_PlayAndRecord error:NULL])
+//    {
+//        //active audiosession
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruptHandler:) name:MCAudioSessionInterruptionNotification object:nil];
+//        if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+//        {
+//            if (!error)
+//            {
+//                _failed = NO;
+////                _audioFileStream.delegate = self;
+//            }
+//        }
+//    }
     
     if (_failed)
     {
@@ -361,7 +377,7 @@ static const NSTimeInterval bufferDuration = 0.2;
 #pragma mark - interrupt
 - (void)interruptHandler:(NSNotification *)notification
 {
-    UInt32 interruptionState = [notification.userInfo[MCAudioSessionInterruptionStateKey] unsignedIntValue];
+    UInt32 interruptionState = [notification.userInfo[AVAudioSessionInterruptionNotification] unsignedIntValue];
     
     if (interruptionState == kAudioSessionBeginInterruption)
     {
@@ -372,12 +388,12 @@ static const NSTimeInterval bufferDuration = 0.2;
     }
     else if (interruptionState == kAudioSessionEndInterruption)
     {
-        AudioSessionInterruptionType interruptionType = [notification.userInfo[MCAudioSessionInterruptionTypeKey] unsignedIntValue];
+        AudioSessionInterruptionType interruptionType = [notification.userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntValue];
         if (interruptionType == kAudioSessionInterruptionType_ShouldResume)
         {
             if (self.status == MCSAPStatusPaused && _pausedByInterrupt)
             {
-                if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+                if ([[AVAudioSession sharedInstance] setActive:YES error:NULL])
                 {
                     [self play];
                 }
@@ -385,6 +401,34 @@ static const NSTimeInterval bufferDuration = 0.2;
         }
     }
 }
+
+
+//- (void)interruptHandler:(NSNotification *)notification
+//{
+//    UInt32 interruptionState = [notification.userInfo[MCAudioSessionInterruptionStateKey] unsignedIntValue];
+//    
+//    if (interruptionState == kAudioSessionBeginInterruption)
+//    {
+//        _pausedByInterrupt = YES;
+//        [_outputQueue pause];
+//        [self setStatusInternal:MCSAPStatusPaused];
+//        
+//    }
+//    else if (interruptionState == kAudioSessionEndInterruption)
+//    {
+//        AudioSessionInterruptionType interruptionType = [notification.userInfo[MCAudioSessionInterruptionTypeKey] unsignedIntValue];
+//        if (interruptionType == kAudioSessionInterruptionType_ShouldResume)
+//        {
+//            if (self.status == MCSAPStatusPaused && _pausedByInterrupt)
+//            {
+//                if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+//                {
+//                    [self play];
+//                }
+//            }
+//        }
+//    }
+//}
 
 #pragma mark - parser
 //AudioFileStream解析完成的数据都被存储到了_buffer中
@@ -444,11 +488,18 @@ static const NSTimeInterval bufferDuration = 0.2;
         {
             _pausedByInterrupt = NO;
             _pauseRequired = NO;
-            if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+//            if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+//            {
+//                [[MCAudioSession sharedInstance] setCategory:kAudioSessionCategory_PlayAndRecord error:NULL];
+//                [self _resume];
+//            }
+            
+            if ([[AVAudioSession sharedInstance] setActive:YES error:NULL])
             {
-                [[MCAudioSession sharedInstance] setCategory:kAudioSessionCategory_PlayAndRecord error:NULL];
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:NULL];
                 [self _resume];
             }
+
         }
     }
 }

@@ -4,7 +4,6 @@
 //
 //  Created by iLogiEMAC on 16/8/3.
 //  Copyright © 2016年 zp. All rights reserved.
-//  this file will be deleted
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
