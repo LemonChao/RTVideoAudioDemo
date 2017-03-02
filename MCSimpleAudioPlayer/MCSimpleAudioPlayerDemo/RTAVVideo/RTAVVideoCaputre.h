@@ -25,4 +25,7 @@
 
 - (nullable instancetype)initWithVideoConfiguration:(nullable RTAVVideoConfiguration *)configuration;
 
+/** 点击拍照 */
+- (void)takePhotoButtonClick;
+
 @end

@@ -8,6 +8,7 @@
 
 #import "RTAVVideoCaputre.h"
 #import "RTAVVideoConfiguration.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 @interface RTAVVideoCaputre ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 {
     AVCaptureVideoPreviewLayer * _preViewLayer;
@@ -15,6 +16,11 @@
 }
 @property (nonatomic,strong)AVCaptureSession *session;
 @property (nonatomic,strong)RTAVVideoConfiguration *videoConfiguration;
+
+/** 图片输出流*/
+@property (nonatomic, strong) AVCaptureStillImageOutput* stillImageOutput;
+
+
 @end
 @implementation RTAVVideoCaputre
 
@@ -74,6 +80,15 @@
         
     
         //5.
+        self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+        NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+        //添加照片输出
+        [self.stillImageOutput setOutputSettings:outputSettings];
+        
+        if ([session canAddOutput:self.stillImageOutput]) {
+            [session addOutput:self.stillImageOutput];
+        }
+
         if ([session canAddInput:videoInput]) {
             [session addInput:videoInput];
         }
@@ -184,4 +199,92 @@
         [self.session stopRunning];
     }
 }
+
+//-------new
+/** 点击拍照 */
+- (void)takePhotoButtonClick
+{
+    
+    self.session.sessionPreset = AVCaptureSessionPreset640x480; //AVCaptureSessionPreset1280x720
+    NSLog(@"takephotoClick...");
+    AVCaptureConnection *stillImageConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+    [stillImageConnection setVideoOrientation:avcaptureOrientation];
+    //        [stillImageConnection setVideoScaleAndCropFactor:self.effectiveScale];
+    
+    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        
+        self.session.sessionPreset = AVCaptureSessionPreset1280x720;
+        
+        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
+                                                                    imageDataSampleBuffer,
+                                                                    kCMAttachmentMode_ShouldPropagate);
+        
+        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
+            //无权限
+            NSLog(@"没有权限");
+            return ;
+        }
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+        }];
+        
+        
+    }];
+    
+    
+}
+
+
+/** 设备捕获方向*/
+- (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
+{
+    AVCaptureVideoOrientation result = (AVCaptureVideoOrientation)deviceOrientation;
+    if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
+        result = AVCaptureVideoOrientationLandscapeRight;
+    else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
+        result = AVCaptureVideoOrientationLandscapeLeft;
+    return result;
+}
+
+/** 切换到拍照分辨率*/
+- (void)changeSessionPresentPhoto
+{
+    
+    [self.session stopRunning];
+    if ([self.session canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
+        self.session.sessionPreset = AVCaptureSessionPreset1280x720;
+    }else {
+        self.session.sessionPreset = AVCaptureSessionPreset640x480;
+        
+    }
+    NSLog(@"%@",self.session.sessionPreset);
+    [self.session startRunning];
+    //    usleep(2000);
+}
+/** 切换到视频分辨率*/
+- (void)changeSessionPresentVideo
+{
+    [self.session stopRunning];
+    
+    self.session.sessionPreset = AVCaptureSessionPreset1280x720;
+    
+    NSLog(@"%@",self.session.sessionPreset);
+    [self.session startRunning];
+    //    usleep(2000);
+    
+}
+
+
+
+
+
+
+
+
+
 @end

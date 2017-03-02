@@ -13,6 +13,8 @@
 		6C1C62AF1DD034B6006C6661 /* RTAVVideoConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C62A81DD034B6006C6661 /* RTAVVideoConfiguration.m */; };
 		6C1C62B01DD034B6006C6661 /* RTAVVideoEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C62AA1DD034B6006C6661 /* RTAVVideoEncoder.m */; };
 		6C1C62B11DD034B6006C6661 /* RTAVVideoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C62AC1DD034B6006C6661 /* RTAVVideoFrame.m */; };
+		6C7141B11E4DC52300F0C714 /* FirstVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7141B01E4DC52300F0C714 /* FirstVC.m */; };
+		6C7141B41E4DC53300F0C714 /* SecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7141B31E4DC53300F0C714 /* SecondVC.m */; };
 		DE6D85231AC015E2001FCB95 /* NSTimer+BlocksSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */; };
 		DE85FAAA198CC881009DAEDB /* M4ASample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DE85FAA9198CC881009DAEDB /* M4ASample.m4a */; };
 		DEAC703119975C4400840D69 /* CAFSample.caf in Resources */ = {isa = PBXBuildFile; fileRef = DEAC703019975C4400840D69 /* CAFSample.caf */; };
@@ -33,7 +35,6 @@
 		DEEC98B11987730E003CB508 /* MP3Sample.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DEEC98B01987730E003CB508 /* MP3Sample.mp3 */; };
 		DEEC98BF19877358003CB508 /* MCAudioBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEC98B419877358003CB508 /* MCAudioBuffer.m */; };
 		DEEC98C119877358003CB508 /* MCAudioOutputQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEC98B819877358003CB508 /* MCAudioOutputQueue.m */; };
-		DEEC98C219877358003CB508 /* MCAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEC98BA19877358003CB508 /* MCAudioSession.m */; };
 		DEEC98C319877358003CB508 /* MCParsedAudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEC98BC19877358003CB508 /* MCParsedAudioData.m */; };
 		DEEC98C419877358003CB508 /* MCSimpleAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEC98BE19877358003CB508 /* MCSimpleAudioPlayer.m */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,11 @@
 		6C1C62AA1DD034B6006C6661 /* RTAVVideoEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAVVideoEncoder.m; sourceTree = "<group>"; };
 		6C1C62AB1DD034B6006C6661 /* RTAVVideoFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAVVideoFrame.h; sourceTree = "<group>"; };
 		6C1C62AC1DD034B6006C6661 /* RTAVVideoFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAVVideoFrame.m; sourceTree = "<group>"; };
+		6C7141AE1E4DC08C00F0C714 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		6C7141AF1E4DC52300F0C714 /* FirstVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstVC.h; sourceTree = "<group>"; };
+		6C7141B01E4DC52300F0C714 /* FirstVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstVC.m; sourceTree = "<group>"; };
+		6C7141B21E4DC53300F0C714 /* SecondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondVC.h; sourceTree = "<group>"; };
+		6C7141B31E4DC53300F0C714 /* SecondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondVC.m; sourceTree = "<group>"; };
 		DE6D85211AC015E2001FCB95 /* NSTimer+BlocksSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+BlocksSupport.h"; sourceTree = "<group>"; };
 		DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+BlocksSupport.m"; sourceTree = "<group>"; };
 		DE85FAA9198CC881009DAEDB /* M4ASample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = M4ASample.m4a; sourceTree = "<group>"; };
@@ -89,8 +95,6 @@
 		DEEC98B419877358003CB508 /* MCAudioBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioBuffer.m; sourceTree = "<group>"; };
 		DEEC98B719877358003CB508 /* MCAudioOutputQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioOutputQueue.h; sourceTree = "<group>"; };
 		DEEC98B819877358003CB508 /* MCAudioOutputQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioOutputQueue.m; sourceTree = "<group>"; };
-		DEEC98B919877358003CB508 /* MCAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioSession.h; sourceTree = "<group>"; };
-		DEEC98BA19877358003CB508 /* MCAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioSession.m; sourceTree = "<group>"; };
 		DEEC98BB19877358003CB508 /* MCParsedAudioData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCParsedAudioData.h; sourceTree = "<group>"; };
 		DEEC98BC19877358003CB508 /* MCParsedAudioData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCParsedAudioData.m; sourceTree = "<group>"; };
 		DEEC98BD19877358003CB508 /* MCSimpleAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSimpleAudioPlayer.h; sourceTree = "<group>"; };
@@ -178,8 +182,13 @@
 				DEEC988D198772E6003CB508 /* Main.storyboard */,
 				DEEC9890198772E6003CB508 /* ViewController.h */,
 				DEEC9891198772E6003CB508 /* ViewController.m */,
+				6C7141AF1E4DC52300F0C714 /* FirstVC.h */,
+				6C7141B01E4DC52300F0C714 /* FirstVC.m */,
+				6C7141B21E4DC53300F0C714 /* SecondVC.h */,
+				6C7141B31E4DC53300F0C714 /* SecondVC.m */,
 				DE6D85211AC015E2001FCB95 /* NSTimer+BlocksSupport.h */,
 				DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */,
+				6C7141AE1E4DC08C00F0C714 /* PrefixHeader.pch */,
 				DEEC9893198772E6003CB508 /* Images.xcassets */,
 				DEEC9882198772E6003CB508 /* Supporting Files */,
 			);
@@ -221,8 +230,6 @@
 		DEEC98B219877358003CB508 /* MCSimpleAudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				DEEC98B919877358003CB508 /* MCAudioSession.h */,
-				DEEC98BA19877358003CB508 /* MCAudioSession.m */,
 				DEEC98B719877358003CB508 /* MCAudioOutputQueue.h */,
 				DEEC98B819877358003CB508 /* MCAudioOutputQueue.m */,
 				DEEC98BB19877358003CB508 /* MCParsedAudioData.h */,
@@ -285,7 +292,7 @@
 				ORGANIZATIONNAME = Chengyin;
 				TargetAttributes = {
 					DEEC9877198772E6003CB508 = {
-						DevelopmentTeam = GT3P3LBLU5;
+						DevelopmentTeam = R58L226A58;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -356,9 +363,10 @@
 				DEEC98BF19877358003CB508 /* MCAudioBuffer.m in Sources */,
 				DEEC9888198772E6003CB508 /* main.m in Sources */,
 				6C1C62AE1DD034B6006C6661 /* RTAVVideoCaputre.m in Sources */,
+				6C7141B41E4DC53300F0C714 /* SecondVC.m in Sources */,
+				6C7141B11E4DC52300F0C714 /* FirstVC.m in Sources */,
 				DE6D85231AC015E2001FCB95 /* NSTimer+BlocksSupport.m in Sources */,
 				6C1C62B11DD034B6006C6661 /* RTAVVideoFrame.m in Sources */,
-				DEEC98C219877358003CB508 /* MCAudioSession.m in Sources */,
 				6C1C62AF1DD034B6006C6661 /* RTAVVideoConfiguration.m in Sources */,
 				6C1C62B01DD034B6006C6661 /* RTAVVideoEncoder.m in Sources */,
 			);
@@ -494,12 +502,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GT3P3LBLU5;
+				DEVELOPMENT_TEAM = R58L226A58;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MCSimpleAudioPlayerDemo/MCSimpleAudioPlayerDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MCSimpleAudioPlayerDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = "MCSimpleAudioPlayerDemo/MCSimpleAudioPlayerDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = companychunyin.MCSimpleAudioPlayerDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhengchao.AVFundation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -514,12 +522,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GT3P3LBLU5;
+				DEVELOPMENT_TEAM = R58L226A58;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MCSimpleAudioPlayerDemo/MCSimpleAudioPlayerDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MCSimpleAudioPlayerDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = "MCSimpleAudioPlayerDemo/MCSimpleAudioPlayerDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = companychunyin.MCSimpleAudioPlayerDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhengchao.AVFundation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

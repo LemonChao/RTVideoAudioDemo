@@ -7,7 +7,6 @@
 //
 
 #import "MCSimpleAudioPlayer.h"
-#import "MCAudioSession.h"
 #import "MCAudioOutputQueue.h"
 #import "MCAudioBuffer.h"
 #import <pthread.h>

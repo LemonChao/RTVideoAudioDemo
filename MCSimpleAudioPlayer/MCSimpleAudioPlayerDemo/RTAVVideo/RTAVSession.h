@@ -14,4 +14,8 @@
 
 - (instancetype)initWithRTAVVideoConfiguration:(RTAVVideoConfiguration *)configuration;
 
+/** 拍照 */
+- (void)takePholtoWithParam;
+
+
 @end

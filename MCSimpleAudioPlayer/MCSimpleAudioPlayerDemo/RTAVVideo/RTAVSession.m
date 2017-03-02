@@ -60,4 +60,11 @@
     }
     return _videoEncoder;
 }
+
+/** 坐席主动拍照 */
+- (void)takePholtoWithParam {
+    [self.videoCapture takePhotoButtonClick];
+}
+
+
 @end

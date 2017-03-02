@@ -10,7 +10,5 @@
 
 @interface ViewController : UIViewController
 
-@property (nonatomic,readwrite) IBOutlet UIButton *playOrPauseButton;
-@property (nonatomic,readwrite) IBOutlet UISlider *progressSlider;
 
 @end
