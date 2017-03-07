@@ -27,6 +27,9 @@
     if (self = [super init]) {
         _configuration = configuration;
         [self initCompressSession];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterForground) name:@"enterForeground" object:nil];
+        
 #ifdef DEBUG
         enabledWriteVideoFile = YES;
         [self initForFilePath];
@@ -34,6 +37,11 @@
     }
     return self;
 }
+
+- (void)enterForground {
+    [self initCompressSession];
+}
+
 - (void)initCompressSession
 {
     if (compressSession) {
@@ -195,7 +203,9 @@ void  outputCallBack(void * CM_NULLABLE outputCallbackRefCon,void * CM_NULLABLE 
     }
 }
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"enterForeground" object:nil];
+}
 
 
 @end

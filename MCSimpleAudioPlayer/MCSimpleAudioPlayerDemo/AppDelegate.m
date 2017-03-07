@@ -8,7 +8,14 @@
 
 #import "AppDelegate.h"
 
+#import "RTAVSession.h"
+
+#import "RTAVVideoConfiguration.h"
+
 @implementation AppDelegate
+{
+    RTAVSession *session;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -31,6 +38,14 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+//    session = [[RTAVSession alloc]initWithRTAVVideoConfiguration:[RTAVVideoConfiguration defaultConfigurationForQuality:kRTVideoQuality_HD_Low]];
+//    
+////    session.preView = self.view;
+//    
+//    session.running = YES;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"enterForeground" object:nil];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
