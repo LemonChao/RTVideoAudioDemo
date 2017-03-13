@@ -38,8 +38,36 @@
     return self;
 }
 
-- (void)enterForground {
-    [self initCompressSession];
+//- (void)enterForground {
+//    [self initCompressSession];
+//}
+
+- (void)resumeSession {
+    
+    VTCompressionSessionCreate(NULL, _configuration.videoSize.width, _configuration.videoSize.height, kCMVideoCodecType_H264, NULL, NULL, NULL, outputCallBack, (__bridge void *)self, &compressSession);
+    //    _currentVideoBitRate = _configuration.videoBitRate;
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_MaxKeyFrameInterval,(__bridge CFTypeRef)@(25));//_configuration.videoMaxBitRate
+    //    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration,(__bridge CFTypeRef)@(_configuration.videoMaxKeyframeInterval));
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_ExpectedFrameRate, (__bridge CFTypeRef)@(_configuration.videoFrameRate));
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_AverageBitRate, (__bridge CFTypeRef)@(_configuration.videoBitRate));
+    NSArray *limit = @[@(_configuration.videoBitRate * 1.5/8),@(1)];
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_DataRateLimits, (__bridge CFArrayRef)limit);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_RealTime, kCFBooleanFalse);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_ProfileLevel, kVTProfileLevel_H264_Main_AutoLevel);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_AllowFrameReordering, kCFBooleanFalse);
+    VTSessionSetProperty(compressSession, kVTCompressionPropertyKey_H264EntropyMode, kVTH264EntropyMode_CABAC);
+    VTCompressionSessionPrepareToEncodeFrames(compressSession);
+    
+}
+
+- (void)pauseSession {
+    
+    //如果存在强制将当前的会话结束帧编码
+    VTCompressionSessionCompleteFrames(compressSession, kCMTimeInvalid);
+    VTCompressionSessionInvalidate(compressSession);
+    CFRelease(compressSession);
+    compressSession = NULL;
+
 }
 
 - (void)initCompressSession

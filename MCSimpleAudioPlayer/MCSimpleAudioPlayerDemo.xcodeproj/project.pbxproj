@@ -13,6 +13,8 @@
 		6C1C62AF1DD034B6006C6661 /* RTAVVideoConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C62A81DD034B6006C6661 /* RTAVVideoConfiguration.m */; };
 		6C1C62B01DD034B6006C6661 /* RTAVVideoEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C62AA1DD034B6006C6661 /* RTAVVideoEncoder.m */; };
 		6C1C62B11DD034B6006C6661 /* RTAVVideoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C62AC1DD034B6006C6661 /* RTAVVideoFrame.m */; };
+		6C57F49B1E6FEB500063DD30 /* UIImage+water.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C57F49A1E6FEB500063DD30 /* UIImage+water.m */; };
+		6C57F49E1E6FF08B0063DD30 /* UIImage+compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C57F49D1E6FF08B0063DD30 /* UIImage+compress.m */; };
 		6C7141B11E4DC52300F0C714 /* FirstVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7141B01E4DC52300F0C714 /* FirstVC.m */; };
 		6C7141B41E4DC53300F0C714 /* SecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7141B31E4DC53300F0C714 /* SecondVC.m */; };
 		DE6D85231AC015E2001FCB95 /* NSTimer+BlocksSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */; };
@@ -62,6 +64,10 @@
 		6C1C62AA1DD034B6006C6661 /* RTAVVideoEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAVVideoEncoder.m; sourceTree = "<group>"; };
 		6C1C62AB1DD034B6006C6661 /* RTAVVideoFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAVVideoFrame.h; sourceTree = "<group>"; };
 		6C1C62AC1DD034B6006C6661 /* RTAVVideoFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAVVideoFrame.m; sourceTree = "<group>"; };
+		6C57F4991E6FEB500063DD30 /* UIImage+water.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+water.h"; sourceTree = "<group>"; };
+		6C57F49A1E6FEB500063DD30 /* UIImage+water.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+water.m"; sourceTree = "<group>"; };
+		6C57F49C1E6FF08B0063DD30 /* UIImage+compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+compress.h"; sourceTree = "<group>"; };
+		6C57F49D1E6FF08B0063DD30 /* UIImage+compress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+compress.m"; sourceTree = "<group>"; };
 		6C7141AE1E4DC08C00F0C714 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		6C7141AF1E4DC52300F0C714 /* FirstVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstVC.h; sourceTree = "<group>"; };
 		6C7141B01E4DC52300F0C714 /* FirstVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstVC.m; sourceTree = "<group>"; };
@@ -185,6 +191,10 @@
 				6C7141AF1E4DC52300F0C714 /* FirstVC.h */,
 				6C7141B01E4DC52300F0C714 /* FirstVC.m */,
 				6C7141B21E4DC53300F0C714 /* SecondVC.h */,
+				6C57F4991E6FEB500063DD30 /* UIImage+water.h */,
+				6C57F49A1E6FEB500063DD30 /* UIImage+water.m */,
+				6C57F49C1E6FF08B0063DD30 /* UIImage+compress.h */,
+				6C57F49D1E6FF08B0063DD30 /* UIImage+compress.m */,
 				6C7141B31E4DC53300F0C714 /* SecondVC.m */,
 				DE6D85211AC015E2001FCB95 /* NSTimer+BlocksSupport.h */,
 				DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */,
@@ -353,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C57F49B1E6FEB500063DD30 /* UIImage+water.m in Sources */,
 				DEEC9892198772E6003CB508 /* ViewController.m in Sources */,
 				DEEC98C319877358003CB508 /* MCParsedAudioData.m in Sources */,
 				DEEC98C419877358003CB508 /* MCSimpleAudioPlayer.m in Sources */,
@@ -367,6 +378,7 @@
 				6C7141B11E4DC52300F0C714 /* FirstVC.m in Sources */,
 				DE6D85231AC015E2001FCB95 /* NSTimer+BlocksSupport.m in Sources */,
 				6C1C62B11DD034B6006C6661 /* RTAVVideoFrame.m in Sources */,
+				6C57F49E1E6FF08B0063DD30 /* UIImage+compress.m in Sources */,
 				6C1C62AF1DD034B6006C6661 /* RTAVVideoConfiguration.m in Sources */,
 				6C1C62B01DD034B6006C6661 /* RTAVVideoEncoder.m in Sources */,
 			);

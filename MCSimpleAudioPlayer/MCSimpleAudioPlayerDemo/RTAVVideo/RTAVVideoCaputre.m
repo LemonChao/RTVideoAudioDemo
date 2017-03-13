@@ -205,36 +205,88 @@
 - (void)takePhotoButtonClick
 {
     
-    self.session.sessionPreset = AVCaptureSessionPreset640x480; //AVCaptureSessionPreset1280x720
-    NSLog(@"takephotoClick...");
-    AVCaptureConnection *stillImageConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
-    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
-    [stillImageConnection setVideoOrientation:avcaptureOrientation];
-    //        [stillImageConnection setVideoScaleAndCropFactor:self.effectiveScale];
     
-    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-        
-        self.session.sessionPreset = AVCaptureSessionPreset1280x720;
-        
-        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                    imageDataSampleBuffer,
-                                                                    kCMAttachmentMode_ShouldPropagate);
-        
-        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
-        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
-            //无权限
-            NSLog(@"没有权限");
-            return ;
-        }
-        
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-        }];
-        
-        
-    }];
+     //添加了切换分辨率, 高分辨率图片压缩
+     [self changeSessionPresentPhoto];
+     AVCaptureConnection *stillImageConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+     UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+     AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+     [stillImageConnection setVideoOrientation:avcaptureOrientation];
+     //    [stillImageConnection setVideoScaleAndCropFactor:self.effectiveScale];
+     
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.50 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+     
+     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+         
+         
+         [self changeSessionPresentVideo];
+         
+         NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+         CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
+                                                                     imageDataSampleBuffer,
+                                                                     kCMAttachmentMode_ShouldPropagate);
+         
+         ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+         if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
+             //无权限
+             NSLog(@"没有权限");
+             
+             return ;
+         }
+         
+
+         
+         NSData *compressData = [UIImage zipImageWithImage:[UIImage imageWithData:jpegData]];
+
+         
+         
+         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+         [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+         }];
+         
+         [library writeImageDataToSavedPhotosAlbum:compressData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+         }];
+
+//         [library writeImageToSavedPhotosAlbum:<#(CGImageRef)#> metadata:<#(NSDictionary *)#> completionBlock:<#^(NSURL *assetURL, NSError *error)completionBlock#>]
+         
+//         [library writeImageToSavedPhotosAlbum:<#(CGImageRef)#> orientation:<#(ALAssetOrientation)#> completionBlock:<#^(NSURL *assetURL, NSError *error)completionBlock#>]
+
+     
+     }];
+  });
+
+    
+    
+//    self.session.sessionPreset = AVCaptureSessionPreset640x480; //AVCaptureSessionPreset1280x720
+//    NSLog(@"takephotoClick...");
+//    AVCaptureConnection *stillImageConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+//    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+//    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+//    [stillImageConnection setVideoOrientation:avcaptureOrientation];
+//    //        [stillImageConnection setVideoScaleAndCropFactor:self.effectiveScale];
+//    
+//    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+//        
+//        self.session.sessionPreset = AVCaptureSessionPreset1280x720;
+//        
+//        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+//        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
+//                                                                    imageDataSampleBuffer,
+//                                                                    kCMAttachmentMode_ShouldPropagate);
+//        
+//        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+//        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
+//            //无权限
+//            NSLog(@"没有权限");
+//            return ;
+//        }
+//        
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+//        }];
+//        
+//        
+//    }];
     
     
 }
@@ -256,8 +308,8 @@
 {
     
     [self.session stopRunning];
-    if ([self.session canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
-        self.session.sessionPreset = AVCaptureSessionPreset1280x720;
+    if ([self.session canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
+        self.session.sessionPreset = AVCaptureSessionPreset1920x1080;
     }else {
         self.session.sessionPreset = AVCaptureSessionPreset640x480;
         
@@ -271,18 +323,13 @@
 {
     [self.session stopRunning];
     
-    self.session.sessionPreset = AVCaptureSessionPreset1280x720;
+    self.session.sessionPreset = AVCaptureSessionPreset640x480;
     
     NSLog(@"%@",self.session.sessionPreset);
     [self.session startRunning];
     //    usleep(2000);
     
 }
-
-
-
-
-
 
 
 

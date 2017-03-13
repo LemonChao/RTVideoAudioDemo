@@ -13,4 +13,9 @@
 - (nullable instancetype)initWithVideoConfiguration:(nullable RTAVVideoConfiguration *)configuration;
 
 - (void)encoderVideoData:(CVPixelBufferRef)pixelBuffer timeStamp:(int64_t)timestamp;
+
+- (void)resumeSession;
+
+- (void)pauseSession;
+
 @end

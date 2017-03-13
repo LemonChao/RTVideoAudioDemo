@@ -32,13 +32,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-//    if (!_player)
-//    {
-//        NSString *path = [[NSBundle mainBundle] pathForResource:@"MP3Sample" ofType:@"mp3"];
-//        _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:kAudioFileMP3Type];
-//        
-//    }
-//    [_player play];
+    if (!_player)
+    {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"MP3Sample" ofType:@"mp3"];
+        _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:kAudioFileMP3Type];
+        
+    }
+    [_player play];
 
     //kRTVideoQuality_HD_Low 1280x720
     //kRTVideoQuality_Common_Medium123 640x480

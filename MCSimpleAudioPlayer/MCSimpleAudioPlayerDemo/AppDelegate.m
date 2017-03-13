@@ -44,7 +44,7 @@
 //    
 //    session.running = YES;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"enterForeground" object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"enterForeground" object:nil];
 
 }
 

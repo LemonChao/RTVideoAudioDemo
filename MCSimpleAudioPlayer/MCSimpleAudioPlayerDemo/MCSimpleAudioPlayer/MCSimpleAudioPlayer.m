@@ -232,7 +232,7 @@ static const NSTimeInterval bufferDuration = 0.2;
 {
     _failed = YES;
     NSError *error = nil;
-    if ([[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:NULL])
+    if ([[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:NULL])
     {
         //active audiosession
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruptHandler:) name:AVAudioSessionInterruptionNotification object:nil];
@@ -366,6 +366,7 @@ static const NSTimeInterval bufferDuration = 0.2;
 //                [_audioQueue reset];
 //            }
         }
+        usleep(3000);
     }
     
     //clean
@@ -376,7 +377,7 @@ static const NSTimeInterval bufferDuration = 0.2;
 #pragma mark - interrupt
 - (void)interruptHandler:(NSNotification *)notification
 {
-    UInt32 interruptionState = [notification.userInfo[AVAudioSessionInterruptionNotification] unsignedIntValue];
+    UInt32 interruptionState = [notification.userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntValue];
     
     if (interruptionState == kAudioSessionBeginInterruption)
     {
@@ -495,7 +496,7 @@ static const NSTimeInterval bufferDuration = 0.2;
             
             if ([[AVAudioSession sharedInstance] setActive:YES error:NULL])
             {
-                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:NULL];
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:NULL];
                 [self _resume];
             }
 
