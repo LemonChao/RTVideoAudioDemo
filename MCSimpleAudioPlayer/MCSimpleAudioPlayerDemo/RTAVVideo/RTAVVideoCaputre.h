@@ -10,6 +10,15 @@
 #import <UIKit/UIKit.h>
 @import AVFoundation;
 
+typedef NS_ENUM(NSInteger, CaptureSessionState) {
+    CaptureSessionRuning            = 1,
+    CaptureSessionStop              = 2,
+    CaptureSessionInterruptEnded    = 3,
+    
+    
+};
+
+
 @class RTAVVideoCaputre,RTAVVideoConfiguration;
 @protocol RTAVVideoCaputreDelegate <NSObject>
 
@@ -19,7 +28,7 @@
 
 @interface RTAVVideoCaputre : NSObject
 @property (nonatomic,assign)BOOL runing;
-@property (nonatomic,strong)UIView * preView;
+@property (nonatomic,strong)UIView *preView;
 @property (nonatomic,weak,nullable)id <RTAVVideoCaputreDelegate> delegate;
 
 

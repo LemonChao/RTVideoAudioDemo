@@ -377,7 +377,10 @@ static const NSTimeInterval bufferDuration = 0.2;
 #pragma mark - interrupt
 - (void)interruptHandler:(NSNotification *)notification
 {
+    DLog(@"notif = %@", notification);
+    
     UInt32 interruptionState = [notification.userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntValue];
+    
     
     if (interruptionState == kAudioSessionBeginInterruption)
     {

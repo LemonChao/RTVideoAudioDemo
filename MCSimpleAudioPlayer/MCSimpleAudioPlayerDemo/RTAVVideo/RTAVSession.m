@@ -8,10 +8,8 @@
 
 #import "RTAVSession.h"
 #import "RTAVVideoCaputre.h"
-#import "RTAVVideoEncoder.h"
-@interface RTAVSession ()<RTAVVideoCaputreDelegate>
+@interface RTAVSession ()
 @property (nonatomic,strong)RTAVVideoCaputre *videoCapture;
-@property (nonatomic,strong)RTAVVideoEncoder *videoEncoder;
 @property (nonatomic,strong)RTAVVideoConfiguration *configuration;
 @end
 
@@ -24,15 +22,11 @@
     }
     return  self;
 }
-#pragma mark - delegate
-- (void)captureOutput:(RTAVVideoCaputre *)capture pixelBuffer:(CVImageBufferRef)pixelBuffer
-{
-    [self.videoEncoder encoderVideoData:pixelBuffer timeStamp:0];
-}
+
 #pragma mark - setter & getter
 - (void)setRunning:(BOOL)running
 {
-    if (_running == running ) return;
+    if (_running == running) return;
     _running = running;
     self.videoCapture.runing = running;
 }
@@ -42,7 +36,6 @@
 {
     if (!_videoCapture) {
         RTAVVideoCaputre * videoCapture = [[RTAVVideoCaputre alloc]initWithVideoConfiguration:_configuration];
-        videoCapture.delegate = self;
         _videoCapture = videoCapture;
     }
     return _videoCapture;
@@ -51,14 +44,6 @@
 {
     _preView = preView;
     self.videoCapture.preView = preView;
-}
--(RTAVVideoEncoder *)videoEncoder
-{
-    if (!_videoEncoder) {
-        RTAVVideoEncoder * encoder = [[RTAVVideoEncoder alloc]initWithVideoConfiguration:_configuration];
-        _videoEncoder = encoder;
-    }
-    return _videoEncoder;
 }
 
 /** 坐席主动拍照 */

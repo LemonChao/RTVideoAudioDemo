@@ -14,8 +14,10 @@
 
 - (void)encoderVideoData:(CVPixelBufferRef)pixelBuffer timeStamp:(int64_t)timestamp;
 
-- (void)resumeSession;
+// captureSession被call，alarm 打断恢复后，默认重新启动，但是这个压缩编码器 compressEncoder 不存在了，重新创建
 
-- (void)pauseSession;
+- (void)compressSessionCreat;
+
+- (void)compressSessionIncalid;
 
 @end

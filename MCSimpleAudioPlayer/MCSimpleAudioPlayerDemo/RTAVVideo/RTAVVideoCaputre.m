@@ -8,15 +8,16 @@
 
 #import "RTAVVideoCaputre.h"
 #import "RTAVVideoConfiguration.h"
+#import "RTAVVideoEncoder.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 @interface RTAVVideoCaputre ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 {
     AVCaptureVideoPreviewLayer * _preViewLayer;
     
 }
+@property (nonatomic,strong)RTAVVideoEncoder *videoEncoder;
 @property (nonatomic,strong)AVCaptureSession *session;
 @property (nonatomic,strong)RTAVVideoConfiguration *videoConfiguration;
-
 /** 图片输出流*/
 @property (nonatomic, strong) AVCaptureStillImageOutput* stillImageOutput;
 
@@ -28,11 +29,39 @@
 {
     if (self = [super init]) {
         _videoConfiguration = configuration;
+
         [self addPreVideo];
     }
     return self;
 }
 #pragma mark - Method
+
+- (void)captureSessionWasInterrupt:(NSNotification *)notif {
+    DLog(@"notif = %@", notif);
+    NSDictionary *notiInfo = notif.userInfo;
+
+    AVCaptureSessionInterruptionReason reason =  [notiInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
+    if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableInBackground) {
+        //encoder pause
+        [self.videoEncoder compressSessionIncalid];
+    }
+}
+
+- (void)sessionInterruptionEnded:(NSNotification *)notif {
+    DLog(@"notif = %@", notif);
+    [self.videoEncoder compressSessionCreat];
+    
+}
+
+- (void)sessionDidStopRunning:(NSNotification *)notif {
+    DLog(@"notif = %@", notif);
+}
+
+- (void)sessionDidStartRunning:(NSNotification *)notif {
+    DLog(@"notif = %@", notif);
+}
+
+
 - (void)addPreVideo
 {
     AVCaptureVideoPreviewLayer * preViewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
@@ -50,11 +79,21 @@
 {
     CVImageBufferRef imageBuffer  = CMSampleBufferGetImageBuffer(sampleBuffer);
     if (imageBuffer != NULL) {
-        if ([_delegate respondsToSelector:@selector(captureOutput:pixelBuffer:)]) {
-            [_delegate captureOutput:self pixelBuffer:imageBuffer];
-        }
+        
+        [self.videoEncoder encoderVideoData:imageBuffer timeStamp:0];
     }
 }
+
+
+-(RTAVVideoEncoder *)videoEncoder
+{
+    if (!_videoEncoder) {
+        RTAVVideoEncoder * encoder = [[RTAVVideoEncoder alloc]initWithVideoConfiguration:_videoConfiguration];
+        _videoEncoder = encoder;
+    }
+    return _videoEncoder;
+}
+
 #pragma mark - setter & getter
 - (AVCaptureSession *)session
 {
@@ -63,6 +102,14 @@
         AVCaptureSession * session = [[AVCaptureSession alloc]init];
         session.sessionPreset = _videoConfiguration.avsessionPreset;
        
+        //Session 被打断
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(captureSessionWasInterrupt:) name:AVCaptureSessionWasInterruptedNotification object:session];
+        //session 打断结束
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionInterruptionEnded:) name:AVCaptureSessionInterruptionEndedNotification object:session];
+        //session 已经停止
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionDidStopRunning:) name:AVCaptureSessionDidStopRunningNotification object:session];
+        //session 已经运转
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionDidStartRunning:) name:AVCaptureSessionDidStartRunningNotification object:session];
         
         //1.
         AVCaptureDevice * device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -332,6 +379,13 @@
 }
 
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionWasInterruptedNotification object:self.session];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionInterruptionEndedNotification object:self.session];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStartRunningNotification object:self.session];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:self.session];
 
+}
 
 @end
